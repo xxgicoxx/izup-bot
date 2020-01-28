@@ -1,0 +1,31 @@
+{
+  "name": "izup",
+  "displayName": "Izup",
+  "version": "2.0.0",
+  "description": "Discord bot for check your servers every five minutes",
+  "author": "Giovani de Oliveira <giovanioliveira@outlook.com.br>",
+  "license": "MIT",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xxgicoxx/izup.git"
+  },
+  "bugs": {
+    "url": "https://github.com/xxgicoxx/izup/issues"
+  },
+  "homepage": "https://github.com/xxgicoxx/izup#readme",
+  "keywords": [
+    "discord",
+    "bot",
+    "server"
+  ],
+  "dependencies": {
+    "discord.js": "^11.5.1",
+    "pg": "^7.14.0",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.5"
+  }
+}
