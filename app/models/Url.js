@@ -1,19 +1,23 @@
 module.exports = (sequelize, DataTypes) => {
   const Url = sequelize.define('Url', {
     id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
+      allowNull: false,
       autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER,
     },
     server: {
-      type: DataTypes.STRING,
+      allowNull: false,
+      type: DataTypes.BIGINT,
     },
     url: {
-      type: DataTypes.STRING,
+      allowNull: false,
+      type: DataTypes.STRING(2000),
     },
   },
   {
     tableName: 'urls',
+    timestamps: false,
   });
 
   return Url;

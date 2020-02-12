@@ -23,11 +23,23 @@ Get your token clicking on 'Click to Reveal Token' and set TOKEN in 'configs/dis
 
 ### PostgreSQL
 ````
-# Install PostgreSQL
+# Install
 Install PostgreSQL and create an database
 
 # Configure
-Set DATABASE_URL in 'configs/postgresql.js' like this: postgres://USERNAME:PASSWORD@HOST:PORT/DATABASE
+Set PostgreSQL username, password, database, host and dialect in 'configs/postgresql.js'
+````
+
+### Sequelize
+````
+# Install sequelize-cli
+npm install -D sequelize-cli
+
+# Install dependencies
+npm install
+
+# Create tables
+npx sequelize db:migrate
 ````
 
 ### Run
@@ -35,7 +47,7 @@ Set DATABASE_URL in 'configs/postgresql.js' like this: postgres://USERNAME:PASSW
 # Install dependencies
 npm install
 
-# Run
+# Start
 npm start
 ````
 

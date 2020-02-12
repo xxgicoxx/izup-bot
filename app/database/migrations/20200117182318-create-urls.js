@@ -8,20 +8,16 @@ module.exports = {
     },
     server: {
       allowNull: false,
-      type: DataTypes.STRING,
+      type: DataTypes.BIGINT,
     },
     url: {
       allowNull: false,
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(2000),
     },
-    createdAt: {
-      allowNull: false,
-      type: DataTypes.DATE,
-    },
-    updatedAt: {
-      allowNull: false,
-      type: DataTypes.DATE,
-    },
+  },
+  {
+    tableName: 'urls',
+    timestamps: false,
   }),
 
   down: (queryInterface) => queryInterface.dropTable('urls'),

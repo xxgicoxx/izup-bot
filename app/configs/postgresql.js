@@ -1,9 +1,9 @@
 const postgresql = {
-  username: process.env.DATABASE_USERNAME || 'izup',
-  password: process.env.DATABASE_PASSWORD || '123456',
-  database: process.env.DATABASE_NAME || 'izup',
-  host: process.env.DATABASE_HOST || '127.0.0.1',
-  dialect: process.env.DATABASE_DIALECT || 'postgres',
+  username: process.env.IZUP_POSTGRESQL_USERNAME || 'izup',
+  password: process.env.IZUP_POSTGRESQL_PASSWORD || '123456',
+  database: process.env.IZUP_POSTGRESQL_DATABASE || 'izup',
+  host: process.env.IZUP_POSTGRESQL_HOST || '127.0.0.1',
+  dialect: process.env.IZUP_POSTGRESQL_DIALECT || 'postgres',
 };
 
 module.exports = postgresql;
