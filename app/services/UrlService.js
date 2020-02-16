@@ -79,11 +79,10 @@ class UrlService {
       if (urls === null || urls.length === 0) {
         $.reply('Use !izup add [URL] to add new URL');
       } else {
-        urls.forEach(async (e) => {
+        urls.forEach((e) => {
           const embed = new RichEmbed().setTitle('').setColor().setDescription(`${e.id} - ${e.url}`);
 
           request(e.url, (error) => {
-            console.log(e.url);
             embed.setTitle(`${error ? 'Offline' : 'Online'}`);
             embed.setColor(`${error ? 'RED' : 'GREEN'}`);
 
@@ -112,11 +111,7 @@ class UrlService {
           $.reply('Invalid URL');
         } else {
           request(value, (error) => {
-            if (error) {
-              $.reply(`${value} is offline!`);
-            } else {
-              $.reply(`${value} is online!`);
-            }
+            $.reply(`${value} is ${error ? 'Offline' : 'Online'}!`);
           });
         }
       }
@@ -132,7 +127,7 @@ class UrlService {
       const server = $.guild.id;
       const urls = await Url.findAll({ where: { server } });
 
-      urls.forEach(async (e) => {
+      urls.forEach((e) => {
         const embed = new RichEmbed().setTitle('').setColor().setDescription(`${e.id} - ${e.url}`);
 
         request(e.url, (error) => {
