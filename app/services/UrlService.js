@@ -26,7 +26,6 @@ class UrlService {
         if (!validUrl) {
           $.reply('Invalid URL');
         } else {
-          console.log(server);
           const url = await Url.findOne({ where: { server, url: value } });
 
           if (url !== null) {
