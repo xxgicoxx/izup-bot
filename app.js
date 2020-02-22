@@ -1,11 +1,12 @@
 const { Client } = require('discord.js');
 const cron = require('node-cron');
 
-const { UrlController } = require('./app/controllers');
+const { MessageController, UrlController } = require('./app/controllers');
 
 const { discordConfig } = require('./app/configs');
 
 const client = new Client();
+const messageController = new MessageController();
 const urlController = new UrlController();
 
 client.login(discordConfig.token);
@@ -26,6 +27,8 @@ client.on('ready', () => {
       urlController.checkChanges(defaultChannel);
     });
   });
+
+  messageController.ready();
 });
 
 client.on('message', ($) => {
@@ -50,18 +53,14 @@ client.on('message', ($) => {
       urlController.list($);
       break;
     case 'help':
-      urlController.help($);
+      messageController.help($);
       break;
     default:
-      urlController.handle($);
+      messageController.handle($);
       break;
   }
 });
 
-client.on('guildMemberAdd', (member) => {
-  const channel = member.guild.channels.find((ch) => ch.name === 'member-log');
-
-  if (!channel) return;
-
-  channel.send(`Welcome to the server, ${member}`);
+client.on('guildMemberAdd', ($) => {
+  messageController.hello($);
 });

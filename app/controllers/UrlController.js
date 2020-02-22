@@ -3,10 +3,6 @@ const { UrlService } = require('../services');
 const urlService = new UrlService();
 
 class UrlController {
-  async handle($) {
-    urlService.handle($);
-  }
-
   async add($) {
     urlService.add($);
   }
@@ -25,10 +21,6 @@ class UrlController {
 
   async list($) {
     urlService.list($);
-  }
-
-  async help($) {
-    urlService.help($);
   }
 }
 

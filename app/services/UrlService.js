@@ -7,10 +7,6 @@ const { Url } = require('../models');
 const { discordConfig } = require('../configs');
 
 class UrlService {
-  async handle($) {
-    $.reply('Command not found');
-  }
-
   async add($) {
     try {
       const { channel } = $;
@@ -140,13 +136,7 @@ class UrlService {
       });
     } catch (ex) {
       console.error(ex);
-
-      $.reply('Error, try again later');
     }
-  }
-
-  async help($) {
-    $.reply(`I can help you check servers.\n\nYou can control me by sending these commands:\n\n${discordConfig.prefix} add [URL] - Add URL\n${discordConfig.prefix} remove [ID] - Remove URL\n${discordConfig.prefix} check [URL] - Check URL\n${discordConfig.prefix} list - List servers`);
   }
 }
 
