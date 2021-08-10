@@ -1,58 +1,59 @@
-# Izup
+# Izup Bot
 Discord bot for check your servers every five minutes.
 
-![Bot](http://i.imgur.com/zJZe8ka.png)
+![Bot](https://i.imgur.com/zJZe8ka.png)
 
-### Prerequisites
-* [Node.js](https://nodejs.org/en/) - Node.js
+# Prerequisites
+* [Node.js >= 16.6.0](https://nodejs.org/en/)
 
-### Running
-The server can be run locally and also deployed to your own server.
-
-### Discord
+# Running
+### 1. Configure
 ````
+# Bot
+Create and configure .env file like .env.example.
+````
+
+### 2. Discord
+````
+# Create an Discord account
+Create an OpenSubtitles account on https://discord.com/.
+
 # Create an Discord application
-Create an application on https://discordapp.com/developers/applications/
+Create an application on https://discordapp.com/developers/applications/.
 
 # Add a bot
-Access bot option on settings menu and click on 'Add Bot' button
+Access bot option on settings menu and click on 'Add Bot' button.
 
 # Configure
-Get your token clicking on 'Click to Reveal Token' and set TOKEN in 'configs/discord.js'
+Get your token clicking on 'Click to Reveal Token' and set 'DISCORD_TOKEN' in .env.
 ````
 
-### PostgreSQL
+### 3. PostgreSQL
 ````
 # Install
-Install PostgreSQL and create an database
+Install PostgreSQL and create an database.
 
 # Configure
-Set PostgreSQL username, password, database, host and dialect in 'configs/postgresql.js'
+Set PostgreSQL 'POSTGRESQL_USERNAME', 'POSTGRESQL_PASSWORD', 'POSTGRESQL_DATABASE', 'POSTGRESQL_HOST' and 'POSTGRESQL_DIALECT' in .env.
 ````
 
-### Sequelize
+### 4. Run
 ````
 # Install dependencies
 npm install
 
 # Create tables
-npx sequelize db:migrate
-````
-
-### Run
-````
-# Install dependencies
-npm install
+npm run migrate
 
 # Start
 npm start
 ````
 
-### Built With
+# Built With
 * [Node.js](https://nodejs.org/en/)
 
-### Authors
-* **Giovani de Oliveira** - [xxgicoxx](https://github.com/xxgicoxx)
+# Authors
+* [xxgicoxx](https://github.com/xxgicoxx)
 
-### Acknowledgments
-* [FlatIcon](https://www.flaticon.com/) - Icon
+# Acknowledgments
+* [FlatIcon](https://www.flaticon.com/)

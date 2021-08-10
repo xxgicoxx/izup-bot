@@ -1,12 +1,12 @@
-module.exports = {
-  up: (queryInterface, DataTypes) => queryInterface.createTable('urls', {
+module.exports = (sequelize, DataTypes) => {
+  const Url = sequelize.define('Url', {
     id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: DataTypes.INTEGER,
     },
-    server: {
+    guild: {
       allowNull: false,
       type: DataTypes.BIGINT,
     },
@@ -18,7 +18,7 @@ module.exports = {
   {
     tableName: 'urls',
     timestamps: false,
-  }),
+  });
 
-  down: (queryInterface) => queryInterface.dropTable('urls'),
+  return Url;
 };

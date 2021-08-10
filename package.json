@@ -1,22 +1,24 @@
 {
-  "name": "izup",
-  "displayName": "Izup",
-  "version": "2.0.1",
+  "name": "izup-bot",
+  "displayName": "Izup Bot",
+  "version": "3.0.0",
   "description": "Discord bot for check your servers every five minutes",
   "author": "Giovani de Oliveira <giovanioliveira@outlook.com.br>",
   "license": "MIT",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node server.js",
+    "migrate": "npx sequelize-cli db:migrate",
+    "seed": "npx sequelize-cli db:seed:all"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/xxgicoxx/izup.git"
+    "url": "https://github.com/xxgicoxx/izup-bot.git"
   },
   "bugs": {
-    "url": "https://github.com/xxgicoxx/izup/issues"
+    "url": "https://github.com/xxgicoxx/izup-bot/issues"
   },
-  "homepage": "https://github.com/xxgicoxx/izup#readme",
+  "homepage": "https://github.com/xxgicoxx/izup-bot#readme",
   "keywords": [
     "discord",
     "bot",
@@ -24,12 +26,13 @@
     "url"
   ],
   "dependencies": {
-    "discord.js": "^11.5.1",
+    "discord.js": "^13.0.1",
+    "dotenv": "^10.0.0",
     "eh-url": "^1.0.2",
-    "node-cron": "^2.0.3",
-    "pg": "^7.14.0",
-    "request": "^2.88.0",
-    "sequelize": "^5.21.3"
+    "node-cron": "^3.0.0",
+    "node-fetch": "^2.6.1",
+    "pg": "^8.7.1",
+    "sequelize": "^6.6.5"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
