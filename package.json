@@ -28,7 +28,7 @@
   "dependencies": {
     "discord.js": "^13.0.1",
     "dotenv": "^10.0.0",
-    "eh-url": "^1.0.2",
+    "eh-url": "^2.0.1",
     "node-cron": "^3.0.0",
     "node-fetch": "^2.6.1",
     "pg": "^8.7.1",
