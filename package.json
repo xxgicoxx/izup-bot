@@ -30,7 +30,7 @@
     "dotenv": "^16.0.0",
     "eh-url": "^2.0.1",
     "node-cron": "^3.0.0",
-    "node-fetch": "^2.6.6",
+    "node-fetch": "^3.3.1",
     "pg": "^8.7.3",
     "sequelize": "^6.18.0"
   },
