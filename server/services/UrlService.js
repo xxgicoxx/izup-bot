@@ -1,25 +1,26 @@
 const { MessageEmbed } = require('discord.js');
-const ehUrl = require('eh-url');
+const EhUrl = require('eh-url');
 const fetch = require('node-fetch');
 
 const { Url } = require('../models');
-
 const { discordConfig } = require('../configs');
+const { constants } = require('../utils');
 
+const ehUrl = new EhUrl();
 class UrlService {
   async handle(message) {
     try {
-      message.reply('Command not found');
+      message.reply(constants.MESSAGE_COMMAND_NOT_FOUND);
     } catch (error) {
       console.error(error);
 
-      message.reply('Error, try again later');
+      message.reply(constants.MESSAGE_ERROR_TRY_AGAIN);
     }
   }
 
   async ready() {
     try {
-      console.log('Discord bot online!');
+      console.log(constants.MESSAGE_DISCORD_BOT_ONLINE);
     } catch (error) {
       console.error(error);
     }
@@ -32,29 +33,35 @@ class UrlService {
       const value = args[1];
       const guild = channel.guild.id;
 
-      if (value === '') {
-        message.reply('URL must not be empty');
-      } else {
-        const validUrl = await ehUrl(value);
+      if (this.isEmpty(value)) {
+        message.reply(constants.MESSAGE_URL_MUST_NOT_BE_EMPTY);
 
-        if (!validUrl) {
-          message.reply('Invalid URL');
-        } else {
-          const url = await Url.findOne({ where: { guild, url: value } });
-
-          if (url !== null) {
-            message.reply('URL already exists');
-          } else {
-            await Url.create({ guild, url: value });
-
-            message.reply('URL added');
-          }
-        }
+        return;
       }
+
+      const validUrl = await ehUrl.check(value);
+
+      if (!validUrl) {
+        message.reply(constants.MESSAGE_URL_INVALID);
+
+        return;
+      }
+
+      const url = await Url.findOne({ where: { guild, url: value } });
+
+      if (url !== null) {
+        message.reply(constants.MESSAGE_URL_ALREADY_EXISTS);
+
+        return;
+      }
+
+      await Url.create({ guild, url: value });
+
+      message.reply(constants.MESSAGE_URL_ADDED);
     } catch (error) {
       console.error(error);
 
-      message.reply('Error, try again later');
+      message.reply(constants.MESSAGE_ERROR_TRY_AGAIN);
     }
   }
 
@@ -63,23 +70,27 @@ class UrlService {
       const args = message.content.slice(discordConfig.prefix.length).trim().split(/ +/g);
       const value = args[1];
 
-      if (value === undefined || value === null || value === '') {
-        message.reply('ID must not be empty');
-      } else {
-        const url = await Url.findOne({ where: { id: value } });
+      if (this.isEmpty(value)) {
+        message.reply(constants.MESSAGE_ID_MUST_NOT_BE_EMPTY);
 
-        if (url === null) {
-          message.reply('URL not found');
-        } else {
-          await url.destroy();
-
-          message.reply('URL removed');
-        }
+        return;
       }
+
+      const url = await Url.findOne({ where: { id: value } });
+
+      if (url === null) {
+        message.reply(constants.MESSAGE_URL_NOT_FOUND);
+
+        return;
+      }
+
+      await url.destroy();
+
+      message.reply(constants.MESSAGE_URL_REMOVED);
     } catch (error) {
       console.error(error);
 
-      message.reply('Error, try again later');
+      message.reply(constants.MESSAGE_ERROR_TRY_AGAIN);
     }
   }
 
@@ -89,23 +100,25 @@ class UrlService {
       const guild = channel.guild.id;
       const urls = await Url.findAll({ where: { guild } });
 
-      if (urls === null || urls.length === 0) {
-        message.reply('Use !izup add [URL] to add new URL');
-      } else {
-        urls.forEach((url) => {
-          fetch(url.url)
-            .then(() => {
-              channel.send({ embeds: [new MessageEmbed().setTitle('Online').setColor('GREEN').setDescription(`${url.id} - ${url.url}`)] });
-            })
-            .catch(() => {
-              channel.send({ embeds: [new MessageEmbed().setTitle('Offline').setColor('RED').setDescription(`${url.id} - ${url.url}`)] });
-            });
-        });
+      if (this.isEmpty(urls)) {
+        message.reply(constants.MESSAGE_URL_LIST_ARE_EMPTY);
+
+        return;
       }
+
+      urls.forEach((url) => {
+        fetch(url.url)
+          .then(() => {
+            channel.send({ embeds: [new MessageEmbed().setTitle(constants.ONLINE).setColor(constants.GREEN).setDescription(`${url.id} - ${url.url}`)] });
+          })
+          .catch(() => {
+            channel.send({ embeds: [new MessageEmbed().setTitle(constants.OFFLINE).setColor(constants.RED).setDescription(`${url.id} - ${url.url}`)] });
+          });
+      });
     } catch (error) {
       console.error(error);
 
-      message.reply('Error, try again later');
+      message.reply(constants.MESSAGE_ERROR_TRY_AGAIN);
     }
   }
 
@@ -114,27 +127,29 @@ class UrlService {
       const args = message.content.slice(discordConfig.prefix.length).trim().split(/ +/g);
       const url = args[1];
 
-      if (url === undefined || url === null || url === '') {
-        message.reply('URL must not be empty');
-      } else {
-        const validUrl = await ehUrl(url);
+      if (this.isEmpty(url)) {
+        message.reply(constants.MESSAGE_URL_MUST_NOT_BE_EMPTY);
 
-        if (!validUrl) {
-          message.reply('Invalid URL');
-        } else {
-          fetch(url)
-            .then(() => {
-              message.reply(`${url} is Online!`);
-            })
-            .catch(() => {
-              message.reply(`${url} is Offline!`);
-            });
-        }
+        return;
       }
+
+      const validUrl = await ehUrl.check(url);
+
+      if (!validUrl) {
+        message.reply(constants.MESSAGE_URL_INVALID);
+
+        return;
+      }
+
+      fetch(url).then(() => {
+        message.reply(`${url} is ${constants.ONLINE}!`);
+      }).catch(() => {
+        message.reply(`${url} is ${constants.OFFLINE}!`);
+      });
     } catch (error) {
       console.error(error);
 
-      message.reply('Error, try again later');
+      message.reply(constants.MESSAGE_ERROR_TRY_AGAIN);
     }
   }
 
@@ -144,14 +159,17 @@ class UrlService {
       const urls = await Url.findAll({ where: { guild } });
 
       urls.forEach((url) => {
-        fetch(url.url)
-          .catch(() => {
-            channel.send({ embeds: [new MessageEmbed().setTitle('Offline').setColor('RED').setDescription(`${url.id} - ${url.url}`)] });
-          });
+        fetch(url.url).catch(() => {
+          channel.send({ embeds: [new MessageEmbed().setTitle(constants.OFFLINE).setColor(constants.RED).setDescription(`${url.id} - ${url.url}`)] });
+        });
       });
     } catch (error) {
       console.error(error);
     }
+  }
+
+  isEmpty(value) {
+    return value === undefined || value === null || value === '' || value.length === 0;
   }
 }
 

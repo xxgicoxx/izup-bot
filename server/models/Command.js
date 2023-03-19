@@ -1,23 +1,23 @@
 module.exports = (sequelize, DataTypes) => {
-  const Url = sequelize.define('Url', {
+  const Command = sequelize.define('Command', {
     id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: DataTypes.INTEGER,
     },
-    guild: {
+    command: {
       allowNull: false,
-      type: DataTypes.BIGINT,
+      type: DataTypes.STRING(2000),
     },
-    url: {
+    description: {
       allowNull: false,
       type: DataTypes.STRING(2000),
     },
   }, {
-    tableName: 'urls',
+    tableName: 'commands',
     timestamps: false,
   });
 
-  return Url;
+  return Command;
 };

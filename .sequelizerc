@@ -3,6 +3,6 @@ const path = require('path');
 module.exports = {
   'config': path.resolve('server/configs', 'postgresql.js'),
   'models-path': path.resolve('server/models', 'models'),
-  'seeders-path': path.resolve('server/database', 'seeders'),
-  'migrations-path': path.resolve('server/database', 'migrations'),
+  'seeders-path': path.resolve('database', 'seeds'),
+  'migrations-path': path.resolve('database', 'migrations'),
 };

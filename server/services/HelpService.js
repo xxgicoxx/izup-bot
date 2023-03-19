@@ -1,15 +1,20 @@
-const { discordConfig } = require('../configs');
+const { Command } = require('../models');
+const { constants } = require('../utils');
 
 class HelpService {
-  async help($) {
+  async help(message) {
     try {
-      const message = `I can help you check servers.\n\nYou can control me by sending these commands:\n\n${discordConfig.prefix} add [URL] - Add URL\n${discordConfig.prefix} remove [ID] - Remove URL\n${discordConfig.prefix} check [URL] - Check URL\n${discordConfig.prefix} list - List servers`;
+      const commands = await Command.findAll();
+      let text = '';
 
-      $.reply(message);
+      text += constants.MESSAGE_HELP;
+      text += commands.map((command) => `${command.command} - ${command.description}`).join('\n');
+
+      message.reply(text);
     } catch (error) {
       console.error(error);
 
-      $.reply('Error, try again later');
+      message.reply(constants.MESSAGE_ERROR_TRY_AGAIN);
     }
   }
 }

@@ -1,7 +1,7 @@
 {
   "name": "izup-bot",
   "displayName": "Izup Bot",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Discord bot for check your servers every five minutes",
   "author": "Giovani de Oliveira <giovanioliveira@outlook.com.br>",
   "license": "MIT",
@@ -26,18 +26,18 @@
     "url"
   ],
   "dependencies": {
-    "discord.js": "^13.0.1",
-    "dotenv": "^10.0.0",
-    "eh-url": "^1.0.2",
+    "discord.js": "^13.6.0",
+    "dotenv": "^16.0.0",
+    "eh-url": "^2.0.1",
     "node-cron": "^3.0.0",
-    "node-fetch": "^2.6.1",
-    "pg": "^8.7.1",
-    "sequelize": "^6.6.5"
+    "node-fetch": "^2.6.6",
+    "pg": "^8.7.3",
+    "sequelize": "^6.18.0"
   },
   "devDependencies": {
-    "eslint": "^7.32.0",
-    "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-plugin-import": "^2.20.1",
-    "sequelize-cli": "^6.2.0"
+    "eslint": "^8.12.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.4",
+    "sequelize-cli": "^6.4.1"
   }
 }

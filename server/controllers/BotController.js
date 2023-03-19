@@ -1,7 +1,9 @@
+const cluster = require('cluster');
 const cron = require('node-cron');
 
 const { discordConfig } = require('../configs');
 const { UrlService, HelpService } = require('../services');
+const { constants } = require('../utils');
 
 const urlService = new UrlService();
 const helpService = new HelpService();
@@ -14,7 +16,7 @@ class BotController {
   async handle() {
     this.bot.login(discordConfig.token);
 
-    this.bot.on('messageCreate', (message) => {
+    this.bot.on(constants.ON_MESSAGE_CREATE, (message) => {
       if (message.author.bot) return;
       if (message.content.indexOf(discordConfig.prefix) !== 0) return;
       if (!message.guild) return;
@@ -23,37 +25,47 @@ class BotController {
       const command = args.shift().toLowerCase();
 
       switch (command) {
-        case 'add':
+        case constants.COMMAND_ADD:
           urlService.add(message);
+
           break;
-        case 'remove':
+        case constants.COMMAND_REMOVE:
           urlService.remove(message);
+
           break;
-        case 'check':
+        case constants.COMMAND_CHECK:
           urlService.check(message);
+
           break;
-        case 'list':
+        case constants.COMMAND_LIST:
           urlService.list(message);
+
           break;
-        case 'help':
+        case constants.COMMAND_HELP:
           helpService.help(message);
+
           break;
         default:
           urlService.handle(message);
+
           break;
       }
     });
   }
 
   async jobs() {
-    this.bot.on('ready', () => {
-      cron.schedule('*/5 * * * *', () => {
+    this.bot.on(constants.ON_READY, () => {
+      cron.schedule(constants.CRON, () => {
+        if (!cluster.isMaster) {
+          return;
+        }
+
         this.bot.guilds.cache.forEach((guild) => {
           let defaultChannel = '';
 
           guild.channels.cache.forEach((channel) => {
-            if (channel.type === 'GUILD_TEXT' && defaultChannel === '') {
-              if (channel.permissionsFor(guild.me).has('SEND_MESSAGES')) {
+            if (channel.type === constants.ON_GUILD_TEXT && defaultChannel === '') {
+              if (channel.permissionsFor(guild.me).has(constants.ON_SEND_MESSAGES)) {
                 defaultChannel = channel;
               }
             }

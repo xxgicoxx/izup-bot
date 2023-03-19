@@ -1,7 +1,15 @@
 # Izup Bot
 Discord bot for check your servers every five minutes.
 
-![Bot](https://i.imgur.com/zJZe8ka.png)
+<p align="center">
+  <img src="assets/imgs/izupbot.png">
+</p>
+
+# Features
+* !bot add `URL` - Add URL
+* !bot remove `ID` - Remove URL
+* !bot check `URL` - Check URL
+* !bot list - List servers
 
 # Prerequisites
 * [Node.js >= 16.6.0](https://nodejs.org/en/)
@@ -15,9 +23,6 @@ Create and configure .env file like .env.example.
 
 ### 2. Discord
 ````
-# Create an Discord account
-Create an OpenSubtitles account on https://discord.com/.
-
 # Create an Discord application
 Create an application on https://discordapp.com/developers/applications/.
 
@@ -25,7 +30,10 @@ Create an application on https://discordapp.com/developers/applications/.
 Access bot option on settings menu and click on 'Add Bot' button.
 
 # Configure
-Get your token clicking on 'Click to Reveal Token' and set 'DISCORD_TOKEN' in .env.
+Access Applications > Settings > Bot and get your token clicking on 'Click to Reveal Token' and set 'DISCORD_TOKEN' in .env.
+
+# Permissions
+Access Applications > Settings > Bot > Privileged Gateway Intents and enable 'Message Content Intent'.
 ````
 
 ### 3. PostgreSQL
@@ -42,8 +50,11 @@ Set PostgreSQL 'POSTGRESQL_USERNAME', 'POSTGRESQL_PASSWORD', 'POSTGRESQL_DATABAS
 # Install dependencies
 npm install
 
-# Create tables
+# Migrate
 npm run migrate
+
+# Seed
+npm run seed
 
 # Start
 npm start
